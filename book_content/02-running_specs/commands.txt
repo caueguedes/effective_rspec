@@ -1,0 +1,33 @@
+    #print on different format
+rspec --format documentation
+
+    #print on highlighted colors
+rspec -fd
+
+    #Identifying slow specs
+rspec --profile 2
+
+    #Running by name
+rspec -e milk -fd
+
+    #running just specific specs
+rspec spec/unit spec/foo_spec.rb
+
+    #running only failures
+    #config.example_status_persistence_file_path = 'spec/examples.txt'
+rspec --only-failures
+
+##Focus
+    #focusing
+    #config.filter_run_when_matching(focus: true)
+    #context 'with milk', focus: true do
+
+fcontext 'with milk' do
+  fit 'shoulf be hotter than 200 degres'
+context 'with milk', focus: true do
+
+
+##Tags
+    #run configurations without setting it
+rspec --tag last_run_status:failed
+
