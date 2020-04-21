@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+
+  ruby_irb:
+    build: .
+
+    volumes:
+      - .:/usr/src/app
