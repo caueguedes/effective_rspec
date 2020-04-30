@@ -11,7 +11,7 @@ module ExpenseTracker
 
     let(:ledger) {instance_double('ExpenseTracker::Ledger')}
 
-    describe 'POST /expense' do
+    describe 'POST /expenses' do
       context 'when the expense is successfully recorded' do
         let(:expense) {{ 'some' => 'data' }}
 
@@ -53,7 +53,7 @@ module ExpenseTracker
 
 
         it 'responds with a 422 (Unprocessable entity)' do
-          post '/expense', JSON.generate(expense)
+          post '/expenses', JSON.generate(expense)
           expect(last_response.status).to eql(422)
         end
 
