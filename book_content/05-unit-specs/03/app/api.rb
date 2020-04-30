@@ -7,7 +7,7 @@ module  ExpenseTracker
     post '/expenses' do
       expense = JSON.parse(request.body.read)
       result = @ledger.record(expense)
-      JSON.generate('expense_id': 42)
+      JSON.generate('expense_id': result.expense_id)
 
     end
 
