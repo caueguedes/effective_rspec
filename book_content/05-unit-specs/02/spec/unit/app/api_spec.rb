@@ -1,6 +1,6 @@
 require_relative  '../../../app/api'
 
-module ExpenseTracer
+module ExpenseTracker
   RSpec.describe "API" do
     describe 'POST /expense' do
       context 'when the expense is successfully recorded' do
