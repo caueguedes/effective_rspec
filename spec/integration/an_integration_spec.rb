@@ -1,4 +1,4 @@
-require_relative '../support/content/06-integration_specs/03/spec/support/db'
+require_relative '../support/db'
 
 RSpec.describe 'An integration spec', :db do
 
