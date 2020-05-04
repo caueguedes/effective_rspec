@@ -1,4 +1,5 @@
 require_relative '../../../app/ledger'
+require 'byebug'
 
 module ExpenseTracker
   RSpec.describe Ledger, :aggregate_failures, :db do
@@ -51,6 +52,34 @@ module ExpenseTracker
           expect(result).not_to be_success
           expect(result.expense_id).to eq(nil)
           expect(result.error_message).to include('`amount` is required')
+
+          expect(DB[:expenses].count).to eq(0)
+        end
+      end
+
+      context 'when the expense have a negative amount' do
+        it 'rejects the expense as invalid' do
+          expense['amount'] = -1
+
+          result = ledger.record(expense)
+
+          expect(result).not_to be_success
+          expect(result.expense_id).to eq(nil)
+          expect(result.error_message).to include('`negative amount` is not accepted')
+
+          expect(DB[:expenses].count).to eq(0)
+        end
+      end
+
+      context 'when the expense have an amount equal to zero' do
+        it 'rejects the expense as invalid' do
+          expense['amount'] = 0
+
+          result = ledger.record(expense)
+
+          expect(result).not_to be_success
+          expect(result.expense_id).to eq(nil)
+          expect(result.error_message).to include('`amount equal zero` is not accepted')
 
           expect(DB[:expenses].count).to eq(0)
         end

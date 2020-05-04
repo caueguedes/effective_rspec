@@ -9,10 +9,16 @@ module ExpenseTracker
     end
 
     def record(expense)
-      unless(expense.key?('payee'))
-        message = 'Invalid expense: `payee` is required'
-        return RecordResult.new(false, nil, message)
+      message = ''
+      message << "Invalid expense: `payee` is required\n" unless(expense.key?('payee'))
+      message << "Invalid expense: `date` is required\n" unless(expense.key?('date'))
+      message << "Invalid expense: `amount` is required\n" unless(expense.key?('amount'))
+      if expense.key?('amount')
+        message << "Invalid expense: `amount equal zero` is not accepted\n" if(expense['amount'] == 0 )
+        message << "Invalid expense: `negative amount` is not accepted\n" if(expense['amount'] < 0)
       end
+
+      return RecordResult.new(false, nil, message) unless message.empty?
 
       DB[:expenses].insert(expense)
       id = DB[:expenses].max(:id)
